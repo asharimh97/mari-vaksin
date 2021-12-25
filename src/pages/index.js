@@ -4,7 +4,7 @@ import useSWR from "swr";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  const { data, error } = useSWR("/api/collect");
+  const { data } = useSWR("/api/collect");
 
   console.log(data);
 
