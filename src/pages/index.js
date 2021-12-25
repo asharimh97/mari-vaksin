@@ -1,8 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
+import useSWR from "swr";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  const { data, error } = useSWR("/api/collect");
+
+  console.log(data);
+
   return (
     <div className={styles.container}>
       <Head>
