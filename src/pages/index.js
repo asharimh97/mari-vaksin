@@ -17,9 +17,14 @@ export default function Home() {
         padding="32px"
         width="750px"
       >
-        <Text fontSize="32px" as="h1" marginBottom="32px">
+        <Text fontSize="32px" as="h1" marginBottom="32px" fontWeight="bold">
           Mari{" "}
-          <Text color="blue400" as="span" fontSize="inherit">
+          <Text
+            color="blue400"
+            as="span"
+            fontSize="inherit"
+            fontWeight="inherit"
+          >
             Vaksin!
           </Text>
         </Text>
