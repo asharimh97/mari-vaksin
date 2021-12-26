@@ -5,7 +5,9 @@ import { SEO, VaccineCard } from "../components";
 export default function Home() {
   const { data } = useSWR("/api/collect");
 
-  console.log(data);
+  if (!data) {
+    return <div />;
+  }
 
   return (
     <>
