@@ -73,7 +73,7 @@ export default async function handler(req, res) {
       response.date = options[0];
     }
 
-    return res.status(200).json(data);
+    return res.status(200).json(response);
   }
 
   return res.status(400).json({
