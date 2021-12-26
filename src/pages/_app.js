@@ -1,4 +1,10 @@
+import {
+  ThemeProvider,
+  Preflight,
+  defaultTheme,
+} from "@xstyled/styled-components";
 import { SWRConfig } from "swr";
+import GlobalStyle from "../config/GlobalStyles";
 import "../styles/globals.css";
 import fetcher from "../utils/fetcher";
 
@@ -10,7 +16,11 @@ function MyApp({ Component, pageProps }) {
         fetcher: fetcher,
       }}
     >
-      <Component {...pageProps} />
+      <ThemeProvider theme={defaultTheme}>
+        <Preflight />
+        <GlobalStyle />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </SWRConfig>
   );
 }
