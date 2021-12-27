@@ -1,8 +1,7 @@
 import { Badge, MapMarkerIcon, Pane, Text, TimeIcon } from "evergreen-ui";
 
 function VaccineCard({ item, ...props }) {
-  const [location, vaccine, dose, start, end, capacity, filled, note] =
-    item.split(",");
+  const { location, vaccine, dose, start, end, capacity, filled, note } = item;
 
   const renderFullBadge = () => {
     const cap = Number(capacity);
