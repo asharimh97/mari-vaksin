@@ -73,6 +73,22 @@ export default async function handler(req, res) {
       response.date = options[0];
     }
 
+    response.data = response.data.map((item) => {
+      const [location, vaccine, dose, start, end, capacity, filled, note] =
+        item.split(",");
+
+      return {
+        location,
+        vaccine,
+        dose,
+        start,
+        end,
+        capacity,
+        filled,
+        note,
+      };
+    });
+
     return res.status(200).json(response);
   }
 
