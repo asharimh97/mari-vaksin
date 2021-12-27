@@ -87,7 +87,7 @@ export default function Home() {
       >
         <Pane marginBottom="16px" display="flex" flexDirection="column">
           <Text fontSize="32px" as="h1" marginBottom="16px" fontWeight="bold">
-            Mari{" "}
+            💉 Mari{" "}
             <Text
               color="blue400"
               as="span"
