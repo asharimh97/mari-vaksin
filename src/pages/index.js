@@ -1,16 +1,15 @@
-import { Button, Pane, Text } from "evergreen-ui";
+import { Pane, Text } from "evergreen-ui";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
-import { SEO, VaccineCard } from "../components";
 import format from "date-fns/format";
 import { id } from "date-fns/locale";
-import { generateVaccineTypes } from "../utils/generator";
-import { useEffect, useState } from "react";
+
+import { SEO, VaccineCard, VaccineFilter } from "../components";
 
 export default function Home() {
   const { data } = useSWR("/api/collect");
 
   const [list, setList] = useState(null);
-  const [vaccines, setVaccines] = useState([]);
   const [selectedVaccine, setSelectedVaccine] = useState("");
 
   useEffect(() => {
@@ -48,26 +47,14 @@ export default function Home() {
     return <Text color="gray700">Jadwal hari ini</Text>;
   };
 
-  const generateFilter = (vaxData) => {
-    const data = generateVaccineTypes(vaxData);
-    data.unshift("Semua jenis");
-    setVaccines(data);
-  };
-
-  useEffect(() => {
-    if (data) {
-      generateFilter(data.data);
-    }
-  }, [data]);
-
   // Event handler
-  const handleClick = (vax) => {
+  const handleClickFilter = (vax) => {
     setSelectedVaccine(vax);
   };
 
   const renderContent = () => {
     if (!list) {
-      return <div />;
+      return <Text>Loading data...</Text>;
     }
 
     return list.data.map((item, idx) => {
@@ -99,20 +86,10 @@ export default function Home() {
           </Text>
           {renderDate()}
         </Pane>
-        {vaccines.length > 0 && (
-          <Pane marginBottom="32px">
-            {vaccines.map((vax) => (
-              <Button
-                key={vax}
-                marginRight={12}
-                size="small"
-                onClick={() => handleClick(vax)}
-              >
-                {vax}
-              </Button>
-            ))}
-          </Pane>
-        )}
+        <VaccineFilter
+          vaccineData={data?.data}
+          onSelectFilter={handleClickFilter}
+        />
         {renderContent()}
       </Pane>
     </>
