@@ -1,4 +1,5 @@
 import { Badge, MapMarkerIcon, Pane, Text, TimeIcon } from "evergreen-ui";
+import VaccineInfo from "./VaccineInfo";
 
 function VaccineCard({ item, ...props }) {
   const { location, vaccine, dose, start, end, capacity, filled, note } = item;
@@ -35,16 +36,8 @@ function VaccineCard({ item, ...props }) {
           {renderFullBadge()}
         </Text>
       </Pane>
-      <Pane display="flex" marginBottom={8}>
-        <MapMarkerIcon color="muted" marginRight={8} />
-        <Text color="muted">{location}</Text>
-      </Pane>
-      <Pane display="flex" marginBottom={8}>
-        <TimeIcon color="muted" marginRight={8} />
-        <Text color="muted">
-          {start} - {end}
-        </Text>
-      </Pane>
+      <VaccineInfo icon={MapMarkerIcon} description={location} />
+      <VaccineInfo icon={TimeIcon} description={`${start} - ${end}`} />
       <Text>{note}</Text>
     </Pane>
   );
