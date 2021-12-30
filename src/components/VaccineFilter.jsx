@@ -1,10 +1,10 @@
 import { Button, Pane } from "evergreen-ui";
-import { arrayOf, any, func } from "prop-types";
+import { arrayOf, any, func, string } from "prop-types";
 import { useState, useEffect } from "react";
 
 import { generateVaccineTypes } from "../utils/generator";
 
-function VaccineFilter({ vaccineData, onSelectFilter }) {
+function VaccineFilter({ vaccineData, onSelectFilter, selectedFilter }) {
   const [vaccines, setVaccines] = useState([]);
 
   const generateFilter = (vaxData) => {
@@ -33,6 +33,7 @@ function VaccineFilter({ vaccineData, onSelectFilter }) {
           marginRight={12}
           size="small"
           onClick={() => handleClick(vax)}
+          intent={vax === selectedFilter && "success"}
         >
           {vax}
         </Button>
@@ -44,6 +45,7 @@ function VaccineFilter({ vaccineData, onSelectFilter }) {
 VaccineFilter.propTypes = {
   vaccineData: arrayOf(any),
   onSelectFilter: func,
+  selectedFilter: string,
 };
 
 export default VaccineFilter;
