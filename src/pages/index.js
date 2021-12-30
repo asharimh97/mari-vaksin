@@ -98,6 +98,16 @@ export default function Home() {
           selectedFilter={selectedVaccine}
         />
         {renderContent()}
+        <Text as="h1" marginY="16px" color="gray600">
+          Vaccine data from{" "}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="http://victori.semarangkota.go.id/"
+          >
+            Victori Kota Semarang
+          </a>
+        </Text>
       </Pane>
     </>
   );
