@@ -1,4 +1,4 @@
-import { string, node } from "prop-types";
+import { string, node, any, oneOfType } from "prop-types";
 import { Pane, Text, Icon } from "evergreen-ui";
 
 function VaccineInfo({ icon, description }) {
@@ -11,7 +11,7 @@ function VaccineInfo({ icon, description }) {
 }
 
 VaccineInfo.propTypes = {
-  icon: node,
+  icon: oneOfType([node, any]),
   description: string,
 };
 
