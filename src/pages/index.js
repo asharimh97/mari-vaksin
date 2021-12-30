@@ -57,9 +57,15 @@ export default function Home() {
       return <Text>Loading data...</Text>;
     }
 
-    return list.data.map((item, idx) => {
-      return <VaccineCard key={idx} item={item} />;
-    });
+    return list.data
+      .sort(
+        (a, b) =>
+          Number(a.filled) / Number(a.capacity) -
+          Number(b.filled) / Number(b.capacity)
+      )
+      .map((item, idx) => {
+        return <VaccineCard key={idx} item={item} />;
+      });
   };
 
   return (
@@ -89,6 +95,7 @@ export default function Home() {
         <VaccineFilter
           vaccineData={data?.data}
           onSelectFilter={handleClickFilter}
+          selectedFilter={selectedVaccine}
         />
         {renderContent()}
       </Pane>
