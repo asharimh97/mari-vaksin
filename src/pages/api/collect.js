@@ -1,48 +1,9 @@
 const rp = require("request-promise");
-const cheerio = require("cheerio");
 
 const { VICTORI_URL } = require("../../lib/constants");
+const { parseData, parseOptions } = require("../../utils/parser");
 
 const API_URL = `${VICTORI_URL}/info`;
-
-const cleanString = (str) => {
-  return String(str)
-    .trim()
-    .replace(/[\r\n]+/g, " ");
-};
-
-const parseData = (htmlData) => {
-  const $ = cheerio.load(htmlData);
-  const allData = $("tr");
-
-  const parsedData = [];
-  allData.map((i, el) => {
-    if (i !== 0) {
-      const parsed = el.children
-        .filter((col) => col.type === "tag")
-        .map(
-          (col) =>
-            col.children && col.children[0] && cleanString(col.children[0].data)
-        );
-      // console.log(parsed)
-      parsedData.push(parsed.join());
-    }
-  });
-
-  return parsedData;
-};
-
-const parseOptions = (htmlData) => {
-  const $ = cheerio.load(htmlData);
-  const allData = $("option");
-
-  const parsedData = [];
-  allData.map((i, el) => {
-    parsedData.push(el.children.length > 0 && el.children[0].data);
-  });
-
-  return parsedData.filter((item) => item);
-};
 
 const requestData = async (date) => {
   const dateParams = date ? `?tanggal=${date}` : "";
@@ -53,7 +14,7 @@ const requestData = async (date) => {
 
 export default async function handler(req, res) {
   // get today's data
-  let initialData = await requestData();
+  let initialData = await requestData("04-01-2022");
 
   // successfully scrape the data
   if (initialData) {
@@ -61,6 +22,7 @@ export default async function handler(req, res) {
     const options = parseOptions(initialData);
     const response = {
       data,
+      available_dates: options,
     };
 
     // if there's no schedule today
