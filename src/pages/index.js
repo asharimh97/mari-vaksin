@@ -7,7 +7,7 @@ import { id } from "date-fns/locale";
 import { SEO, VaccineCard, VaccineFilter } from "../components";
 
 export default function Home() {
-  const { data } = useSWR("/api/collect");
+  const { data, error } = useSWR("/api/collect");
 
   const [list, setList] = useState(null);
   const [selectedVaccine, setSelectedVaccine] = useState("");
@@ -53,6 +53,10 @@ export default function Home() {
   };
 
   const renderContent = () => {
+    if (error) {
+      return <Text>An Error occurred!</Text>;
+    }
+
     if (!list) {
       return <Text>Loading data...</Text>;
     }
