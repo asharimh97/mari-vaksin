@@ -1,13 +1,18 @@
 import { Pane, Text } from "evergreen-ui";
 import { useEffect, useState } from "react";
-import useSWR from "swr";
 import format from "date-fns/format";
 import { id } from "date-fns/locale";
+import { useRouter } from "next/router";
 
 import { SEO, VaccineCard, VaccineFilter } from "../components";
+import VaccineDates from "../components/VaccineDates";
+import useVaccines from "../hooks/useVaccines";
 
 export default function Home() {
-  const { data, error } = useSWR("/api/collect");
+  const router = useRouter();
+  const { date } = router.query;
+
+  const { data, error } = useVaccines(date);
 
   const [list, setList] = useState(null);
   const [selectedVaccine, setSelectedVaccine] = useState("");
@@ -41,7 +46,7 @@ export default function Home() {
         locale: id,
       });
 
-      return <Text color="gray700">Jadwal terdekat: {date}</Text>;
+      return <Text color="gray700">Jadwal untuk: {date}</Text>;
     }
 
     return <Text color="gray700">Jadwal hari ini</Text>;
@@ -96,11 +101,14 @@ export default function Home() {
           </Text>
           {renderDate()}
         </Pane>
-        <VaccineFilter
-          vaccineData={data?.data}
-          onSelectFilter={handleClickFilter}
-          selectedFilter={selectedVaccine}
-        />
+        <Pane marginBottom="32px">
+          <VaccineFilter
+            vaccineData={data?.data}
+            onSelectFilter={handleClickFilter}
+            selectedFilter={selectedVaccine}
+          />
+          <VaccineDates dates={data?.available_dates} />
+        </Pane>
         {renderContent()}
         <Text as="h1" marginY="16px" color="gray600">
           Vaccine data from{" "}
