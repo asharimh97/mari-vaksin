@@ -1,4 +1,4 @@
-import { Button, Pane } from "evergreen-ui";
+import { Select } from "evergreen-ui";
 import { arrayOf, any, func, string } from "prop-types";
 import { useState, useEffect } from "react";
 
@@ -19,26 +19,26 @@ function VaccineFilter({ vaccineData, onSelectFilter, selectedFilter }) {
     }
   }, [vaccineData]);
 
-  const handleClick = (vax) => {
-    onSelectFilter(vax);
+  const handleChangeFilter = (e) => {
+    const val = e.target.value;
+    onSelectFilter(val);
   };
 
   if (vaccines.length === 0) return null;
 
   return (
-    <Pane marginBottom="32px">
+    <Select
+      value={selectedFilter}
+      onChange={handleChangeFilter}
+      height={25}
+      marginRight={16}
+    >
       {vaccines.map((vax) => (
-        <Button
-          key={vax}
-          marginRight={12}
-          size="small"
-          onClick={() => handleClick(vax)}
-          intent={vax === selectedFilter && "success"}
-        >
+        <option key={vax} value={vax}>
           {vax}
-        </Button>
+        </option>
       ))}
-    </Pane>
+    </Select>
   );
 }
 
