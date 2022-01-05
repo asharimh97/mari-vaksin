@@ -14,7 +14,9 @@ const requestData = async (date) => {
 
 export default async function handler(req, res) {
   // get today's data
-  let initialData = await requestData("04-01-2022");
+  const { date } = req.query;
+
+  let initialData = await requestData(date);
 
   // successfully scrape the data
   if (initialData) {
@@ -24,6 +26,10 @@ export default async function handler(req, res) {
       data,
       available_dates: options,
     };
+
+    if (date) {
+      response.date = date;
+    }
 
     // if there's no schedule today
     // get the first available schedule data
