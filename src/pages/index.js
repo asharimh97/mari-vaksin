@@ -80,13 +80,7 @@ export default function Home() {
   return (
     <>
       <SEO />
-      <Pane
-        display="flex"
-        flexDirection="column"
-        margin="auto"
-        padding="32px"
-        width="750px"
-      >
+      <div className="container">
         <Pane marginBottom="16px" display="flex" flexDirection="column">
           <Text fontSize="32px" as="h1" marginBottom="16px" fontWeight="bold">
             💉 Mari{" "}
@@ -120,7 +114,34 @@ export default function Home() {
             Victori Kota Semarang
           </a>
         </Text>
-      </Pane>
+
+        <style jsx>{`
+          .container {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            padding: 32px 16px;
+            width: 100%;
+          }
+          @media (min-width: 640px) {
+            .container {
+              padding: 32px;
+            }
+          }
+
+          @media (min-width: 768px) {
+            .container {
+              width: 640px;
+            }
+          }
+
+          @media (min-width: 1024px) {
+            .container {
+              width: 750px;
+            }
+          }
+        `}</style>
+      </div>
     </>
   );
 }
