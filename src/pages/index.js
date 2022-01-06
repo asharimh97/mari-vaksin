@@ -1,6 +1,6 @@
 import { Pane, Text } from "evergreen-ui";
 import { useEffect, useState } from "react";
-import format from "date-fns/format";
+import { format, isToday } from "date-fns";
 import { id } from "date-fns/locale";
 import { useRouter } from "next/router";
 
@@ -40,16 +40,22 @@ export default function Home() {
   }, [selectedVaccine, data]);
 
   const renderDate = () => {
+    let dateContent = "Jadwal hari ini";
     if (data?.date) {
       const newDate = String(data.date).split("-").reverse().join("-");
-      const date = format(new Date(newDate), "EEEE, d MMMM yyyy", {
-        locale: id,
-      });
+      const parsedDate = new Date(newDate);
 
-      return <Text color="gray700">Jadwal untuk: {date}</Text>;
+      const today = isToday(parsedDate);
+
+      if (!today) {
+        const date = format(parsedDate, "EEEE, d MMMM yyyy", {
+          locale: id,
+        });
+        dateContent = `Jadwal untuk ${date}`;
+      }
     }
 
-    return <Text color="gray700">Jadwal hari ini</Text>;
+    return <Text color="gray700">{dateContent}</Text>;
   };
 
   // Event handler
