@@ -4,7 +4,7 @@ import { format, isToday } from "date-fns";
 import { id } from "date-fns/locale";
 import { useRouter } from "next/router";
 
-import { SEO, VaccineCard, VaccineFilter } from "../components";
+import { SEO, VaccineCard, VaccineFilter, Container } from "../components";
 import VaccineDates from "../components/VaccineDates";
 import useVaccines from "../hooks/useVaccines";
 
@@ -86,7 +86,7 @@ export default function Home() {
   return (
     <>
       <SEO />
-      <div className="container">
+      <Container>
         <Pane marginBottom="16px" display="flex" flexDirection="column">
           <Text fontSize="32px" as="h1" marginBottom="16px" fontWeight="bold">
             💉 Mari{" "}
@@ -120,34 +120,7 @@ export default function Home() {
             Victori Kota Semarang
           </a>
         </Text>
-
-        <style jsx>{`
-          .container {
-            display: flex;
-            flex-direction: column;
-            margin: auto;
-            padding: 32px 16px;
-            width: 100%;
-          }
-          @media (min-width: 640px) {
-            .container {
-              padding: 32px;
-            }
-          }
-
-          @media (min-width: 768px) {
-            .container {
-              width: 640px;
-            }
-          }
-
-          @media (min-width: 1024px) {
-            .container {
-              width: 750px;
-            }
-          }
-        `}</style>
-      </div>
+      </Container>
     </>
   );
 }
