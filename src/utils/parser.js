@@ -45,4 +45,12 @@ const parseOptions = (htmlData) => {
   return parsedData.filter((item) => item);
 };
 
-export { parseData, parseOptions };
+const parseSwabData = (htmlData) => {
+  const $ = cheerio.load(htmlData);
+
+  const allData = $("div.card-body");
+
+  return allData;
+};
+
+export { parseData, parseOptions, parseSwabData };
