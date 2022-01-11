@@ -4,7 +4,7 @@ function Container({ children }) {
   return (
     <section className="container">
       {children}
-      <style jsx>{`
+      <style jsx="true">{`
         .container {
           display: flex;
           flex-direction: column;
