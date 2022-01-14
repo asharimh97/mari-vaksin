@@ -10,4 +10,8 @@ const generateVaccineTypes = (vaccineDatas) => {
   return Array.from(uniqueVaccines);
 };
 
-export { generateVaccineTypes };
+const generateData = () => {
+  // do something here...
+}
+
+export { generateVaccineTypes, generateData };
