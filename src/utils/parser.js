@@ -35,7 +35,8 @@ const parseData = (htmlData) => {
  */
 const parseOptions = (htmlData) => {
   const $ = cheerio.load(htmlData);
-  const allData = $("option");
+  // only select tanggal combo box
+  const allData = $("select[name='tanggal'] option");
 
   const parsedData = [];
   allData.map((i, el) => {
