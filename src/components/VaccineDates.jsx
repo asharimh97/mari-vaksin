@@ -28,7 +28,12 @@ function VaccineDates({ dates }) {
   if (dates.length === 0) return null;
 
   return (
-    <Select value={selectedDate} onChange={handleSelectDate} height={25}>
+    <Select
+      value={selectedDate}
+      onChange={handleSelectDate}
+      height={25}
+      marginRight={16}
+    >
       {dates?.map((date) => (
         <option key={date} value={date}>
           {renderDate(date)}
