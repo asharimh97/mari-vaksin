@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import { SEO, VaccineCard, VaccineFilter, Container } from "../components";
 import VaccineDates from "../components/VaccineDates";
 import useVaccines from "../hooks/useVaccines";
+import VaccineDose from "../components/VaccineDose";
+import { filterListData } from "../utils/general";
 
 export default function Home() {
   const router = useRouter();
@@ -16,6 +18,7 @@ export default function Home() {
 
   const [list, setList] = useState(null);
   const [selectedVaccine, setSelectedVaccine] = useState("");
+  const [selectedDose, setDose] = useState("");
 
   useEffect(() => {
     if (data) {
@@ -25,19 +28,34 @@ export default function Home() {
 
   useEffect(() => {
     if (data) {
-      if (selectedVaccine === "" || selectedVaccine === "Semua jenis") {
-        setList(data);
-      } else {
-        const filteredList = data.data.filter(
-          (item) => item.vaccine === selectedVaccine
+      // by default use `data`
+      let filteredList = data.data;
+
+      if (selectedVaccine && selectedVaccine !== "Semua jenis") {
+        const filtered = filterListData(
+          filteredList,
+          "vaccine",
+          selectedVaccine
         );
-        setList((prevState) => ({
-          ...prevState,
-          data: filteredList,
-        }));
+
+        // update filtered list
+        filteredList = filtered;
       }
+
+      // if selected dose is not empty
+      if (selectedDose) {
+        const filtered = filterListData(filteredList, "dose", selectedDose);
+
+        // update filteredList
+        filteredList = filtered;
+      }
+
+      setList((prevState) => ({
+        ...prevState,
+        data: filteredList,
+      }));
     }
-  }, [selectedVaccine, data]);
+  }, [selectedVaccine, data, selectedDose]);
 
   const renderDate = () => {
     let dateContent = "Jadwal hari ini";
@@ -108,6 +126,11 @@ export default function Home() {
             selectedFilter={selectedVaccine}
           />
           <VaccineDates dates={data?.available_dates} />
+          <VaccineDose
+            vaccineData={data?.data}
+            selectedDose={selectedDose}
+            onSelectDose={setDose}
+          />
         </Pane>
         {renderContent()}
         <Text as="h1" marginY="16px" color="gray600">
