@@ -31,7 +31,7 @@ export default function Home() {
       // by default use `data`
       let filteredList = data.data;
 
-      if (selectedVaccine && selectedVaccine !== "Semua jenis") {
+      if (selectedVaccine) {
         const filtered = filterListData(
           filteredList,
           "vaccine",

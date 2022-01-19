@@ -9,7 +9,6 @@ function VaccineFilter({ vaccineData, onSelectFilter, selectedFilter }) {
 
   const generateFilter = (vaxData) => {
     const data = generateVaccineTypes(vaxData);
-    data.unshift("Semua jenis");
     setVaccines(data);
   };
 
@@ -33,6 +32,7 @@ function VaccineFilter({ vaccineData, onSelectFilter, selectedFilter }) {
       height={25}
       marginRight={16}
     >
+      <option value="">Semua jenis</option>
       {vaccines.map((vax) => (
         <option key={vax} value={vax}>
           {vax}
