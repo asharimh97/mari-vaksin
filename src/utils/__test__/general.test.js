@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { cleanString } from "../general";
 
 const dirtyString = "   Halo, apa kabar?\nIni saya loh. ";

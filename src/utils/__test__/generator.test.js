@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { generateVaccineTypes } from "../generator";
 
 const datas = [
