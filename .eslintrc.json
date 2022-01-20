@@ -1,4 +1,10 @@
 {
+  "env": {
+    "jest": true,
+    "browser": true,
+    "node": true,
+    "commonjs": true
+  },
   "extends": [
     "next/core-web-vitals",
     "prettier",
