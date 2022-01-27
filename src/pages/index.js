@@ -4,7 +4,13 @@ import { format, isToday } from "date-fns";
 import { id } from "date-fns/locale";
 import { useRouter } from "next/router";
 
-import { SEO, VaccineCard, VaccineFilter, Container } from "../components";
+import {
+  SEO,
+  VaccineCard,
+  VaccineFilter,
+  Container,
+  RegisterBanner,
+} from "../components";
 import VaccineDates from "../components/VaccineDates";
 import useVaccines from "../hooks/useVaccines";
 import VaccineDose from "../components/VaccineDose";
@@ -119,6 +125,7 @@ export default function Home() {
           </Text>
           {renderDate()}
         </Pane>
+        {list && <RegisterBanner />}
         <Pane marginBottom="32px">
           <VaccineFilter
             vaccineData={data?.data}
